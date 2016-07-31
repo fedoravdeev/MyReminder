@@ -3,7 +3,7 @@ package fm.ua.afv.myreminder.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +42,7 @@ public class SplashFragment extends Fragment {
                 e.printStackTrace();
             }
             if (getActivity() != null){
-                getActivity().getSupportFragmentManager().popBackStack();
+                getActivity().getFragmentManager().popBackStack();
             }
             return null;
         }
