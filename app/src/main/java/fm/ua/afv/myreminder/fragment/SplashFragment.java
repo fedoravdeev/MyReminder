@@ -1,4 +1,4 @@
-package fm.ua.afv.myreminder;
+package fm.ua.afv.myreminder.fragment;
 
 
 import android.os.AsyncTask;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.concurrent.TimeUnit;
+
+import fm.ua.afv.myreminder.R;
 
 
 /**
@@ -39,7 +41,9 @@ public class SplashFragment extends Fragment {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            getActivity().getSupportFragmentManager().popBackStack();
+            if (getActivity() != null){
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
             return null;
         }
     }
