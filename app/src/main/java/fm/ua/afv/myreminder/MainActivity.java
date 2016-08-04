@@ -15,12 +15,18 @@ import android.widget.Toast;
 
 import fm.ua.afv.myreminder.adapter.TabAdapter;
 import fm.ua.afv.myreminder.dialog.AddingTaskDialogFragment;
+import fm.ua.afv.myreminder.fragment.CurrentTaskFragment;
+import fm.ua.afv.myreminder.fragment.DoneTaskFragment;
 import fm.ua.afv.myreminder.fragment.SplashFragment;
+import fm.ua.afv.myreminder.model.ModelTask;
 
 public class MainActivity extends AppCompatActivity implements AddingTaskDialogFragment.AddingTaskListener{
 
     FragmentManager fragmentManager;
     PreferenceHelper preferenceHelper;
+    TabAdapter tabAdapter;
+    CurrentTaskFragment currentTaskFragment;
+    DoneTaskFragment doneTaskFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
         tabLayout.addTab(tabLayout.newTab().setText(R.string.done_task));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        TabAdapter tabAdapter = new TabAdapter(fragmentManager, 2);
+        tabAdapter = new TabAdapter(fragmentManager, 2);
 
         viewPager.setAdapter(tabAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -105,6 +111,9 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
             }
         });
 
+        currentTaskFragment = (CurrentTaskFragment) tabAdapter.getItem(TabAdapter.CURRENT_TASK_FRAGMENT_POSITION);
+        doneTaskFragment    = (DoneTaskFragment) tabAdapter.getItem(TabAdapter.DONE_TASK_FRAGMENT_POSITION);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,8 +125,9 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
     }
 
     @Override
-    public void onTaskAdded() {
-        Toast.makeText(this, "Task added.", Toast.LENGTH_LONG).show();
+    public void onTaskAdded(ModelTask newTask) {
+        currentTaskFragment.addTask(newTask);
+
     }
 
     @Override
