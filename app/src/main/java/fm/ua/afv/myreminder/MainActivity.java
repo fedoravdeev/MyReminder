@@ -18,16 +18,20 @@ import fm.ua.afv.myreminder.dialog.AddingTaskDialogFragment;
 import fm.ua.afv.myreminder.fragment.CurrentTaskFragment;
 import fm.ua.afv.myreminder.fragment.DoneTaskFragment;
 import fm.ua.afv.myreminder.fragment.SplashFragment;
+import fm.ua.afv.myreminder.fragment.TaskFragment;
 import fm.ua.afv.myreminder.model.ModelTask;
 
 public class MainActivity extends AppCompatActivity
-        implements AddingTaskDialogFragment.AddingTaskListener{
+        implements AddingTaskDialogFragment.AddingTaskListener,
+CurrentTaskFragment.OnTaskDoneListener,  DoneTaskFragment.OnTaskRestoreListener{
 
     FragmentManager fragmentManager;
+
     PreferenceHelper preferenceHelper;
     TabAdapter tabAdapter;
-    CurrentTaskFragment currentTaskFragment;
-    DoneTaskFragment doneTaskFragment;
+
+    TaskFragment currentTaskFragment;
+    TaskFragment doneTaskFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,5 +138,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onTaskAddingCancel() {
         Toast.makeText(this, "Task adding cancel", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onTaskDone(ModelTask task) {
+        doneTaskFragment.addTask(task);
+    }
+
+    @Override
+    public void onTaskRestore(ModelTask task) {
+        currentTaskFragment.addTask(task);
     }
 }
