@@ -34,4 +34,6 @@ public abstract class TaskFragment extends Fragment{
             adapter.addItem(newTask);
         }
     }
+
+    public abstract void moveTask(ModelTask task);
 }
