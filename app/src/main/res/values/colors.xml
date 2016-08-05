@@ -5,4 +5,16 @@
     <color name="colorAccent">#00838F</color>
 
     <color name="white">#FFFFFF</color>
+
+    <color name="priority_high">#ef5350</color>
+    <color name="priority_normal">#ffee58</color>
+    <color name="priority_low">#66bb6a</color>
+
+    <color name="priority_high_selected">#ff8a80</color>
+    <color name="priority_normal_selected">#ffff8d</color>
+    <color name="priority_low_selected">#b9f6ca</color>
+
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_200">#EEEEEE</color>
+
 </resources>

@@ -11,18 +11,14 @@ import android.view.ViewGroup;
 
 import fm.ua.afv.myreminder.R;
 import fm.ua.afv.myreminder.adapter.CurrentTasksAdapter;
-import fm.ua.afv.myreminder.model.ModelTask;
+//import fm.ua.afv.myreminder.model.ModelTask;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CurrentTaskFragment extends Fragment {
-    
-    private RecyclerView rvCurrentTask;
-    private RecyclerView.LayoutManager layoutManager;
+public class CurrentTaskFragment extends TaskFragment {
 
-    private CurrentTasksAdapter adapter;
 
     
     public CurrentTaskFragment() {
@@ -35,33 +31,19 @@ public class CurrentTaskFragment extends Fragment {
                              Bundle savedInstanceState) {
         
         View rootView = inflater.inflate(R.layout.fragment_current_task, container, false);
-        rvCurrentTask = (RecyclerView) rootView.findViewById(R.id.rvCurrentTasks);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.rvCurrentTasks);
 
         layoutManager = new LinearLayoutManager(getActivity());
-        rvCurrentTask.setLayoutManager(layoutManager);
 
-        adapter = new CurrentTasksAdapter();
-        rvCurrentTask.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new CurrentTasksAdapter(this);
+        recyclerView.setAdapter(adapter);
                 
         // Inflate the layout for this fragment
         return rootView;
     }
 
-    public void addTask(ModelTask newTask){
-        int position = -1;
-        for(int i = 0; i < adapter.getItemCount(); i++){
-            if (adapter.getItem(i).isTask()){
-                ModelTask task = (ModelTask) adapter.getItem(i);
-                if(newTask.getDate() < task.getDate()){
-                    position = i;
-                    break;
-                }
-            }
-        }
-        if (position != -1){
-            adapter.addItem(position, newTask);
-        }else {
-            adapter.addItem(newTask);
-        }
-    }
+
+
 }
