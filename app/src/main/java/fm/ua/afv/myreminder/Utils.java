@@ -1,7 +1,5 @@
 package fm.ua.afv.myreminder;
 
-import android.util.Log;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
