@@ -3,7 +3,7 @@ package fm.ua.afv.myreminder.fragment;
 import android.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 
-import fm.ua.afv.myreminder.adapter.CurrentTasksAdapter;
+import fm.ua.afv.myreminder.adapter.TaskAdapter;
 import fm.ua.afv.myreminder.model.ModelTask;
 
 /**
@@ -13,7 +13,7 @@ public abstract class TaskFragment extends Fragment{
     protected RecyclerView recyclerView;
     protected RecyclerView.LayoutManager layoutManager;
 
-    protected CurrentTasksAdapter adapter;
+    protected TaskAdapter adapter;
 
 
 

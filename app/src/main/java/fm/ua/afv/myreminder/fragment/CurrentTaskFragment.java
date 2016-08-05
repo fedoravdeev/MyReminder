@@ -1,6 +1,7 @@
 package fm.ua.afv.myreminder.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +12,7 @@ import android.view.ViewGroup;
 
 import fm.ua.afv.myreminder.R;
 import fm.ua.afv.myreminder.adapter.CurrentTasksAdapter;
-//import fm.ua.afv.myreminder.model.ModelTask;
+import fm.ua.afv.myreminder.model.ModelTask;
 
 
 /**
@@ -20,11 +21,26 @@ import fm.ua.afv.myreminder.adapter.CurrentTasksAdapter;
 public class CurrentTaskFragment extends TaskFragment {
 
 
-    
     public CurrentTaskFragment() {
         // Required empty public constructor
     }
 
+    OnTaskDoneListener onTaskDoneListener;
+
+    public interface OnTaskDoneListener{
+        void onTaskDone(ModelTask task);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try{
+            onTaskDoneListener = (OnTaskDoneListener) activity;
+        }catch (ClassCastException e){
+            throw new ClassCastException(activity.toString() +
+            " must implement OnTaskDoneListener");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +60,9 @@ public class CurrentTaskFragment extends TaskFragment {
         return rootView;
     }
 
-
+    @Override
+    public void moveTask(ModelTask task) {
+        onTaskDoneListener.onTaskDone(task);
+    }
 
 }
