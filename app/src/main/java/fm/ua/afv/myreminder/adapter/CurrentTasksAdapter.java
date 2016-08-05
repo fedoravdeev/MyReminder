@@ -71,7 +71,7 @@ public class CurrentTasksAdapter extends TaskAdapter {
             taskViewHolder.title.setTextColor(resources.getColor(R.color.primary_text_default_material_light));
             taskViewHolder.date.setTextColor(resources.getColor(R.color.secondary_text_default_material_light));
             taskViewHolder.priority.setColorFilter(resources.getColor(task.getPriorityColor()));
-            taskViewHolder.priority.setImageResource(R.drawable.ic_check_circle_white_24dp);
+            taskViewHolder.priority.setImageResource(R.drawable.ic_checkbox_blank_circle_white_48dp);
 
             taskViewHolder.priority.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -95,7 +95,7 @@ public class CurrentTasksAdapter extends TaskAdapter {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             if(task.getStatus() == ModelTask.STATUS_DONE){
-                                taskViewHolder.priority.setImageResource(R.drawable.ic_check_circle_white_24dp);
+                                taskViewHolder.priority.setImageResource(R.drawable.ic_check_circle_white_48dp);
 
                                 ObjectAnimator translationX = ObjectAnimator.ofFloat(itemView,
                                         "translationX", 0f, itemView.getWidth());
