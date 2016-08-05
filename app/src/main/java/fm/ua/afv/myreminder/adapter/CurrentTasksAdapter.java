@@ -41,16 +41,14 @@ public class CurrentTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         switch (viewType){
             case TYPE_TASK:
-                View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.model_task, viewGroup, false);
+                View v = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.model_task, viewGroup, false);
                 TextView title = (TextView) v.findViewById(R.id.tvTaskTitle);
                 TextView date = (TextView) v.findViewById(R.id.tvTaskDate);
                 return new TaskViewHolder(v, title, date);
-            case TYPE_SEPARATOR:
-                break;
             default:
                 return null;
         }
-        return null;
     }
 
     @Override

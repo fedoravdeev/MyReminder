@@ -1,5 +1,8 @@
 package fm.ua.afv.myreminder;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -8,7 +11,7 @@ import java.text.SimpleDateFormat;
 public class Utils {
 
     public static String getDate(long date){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.YY");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy");
         return dateFormat.format(date);
     }
     public static String getTime(long time){

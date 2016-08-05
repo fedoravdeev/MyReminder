@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -62,7 +61,7 @@ public class AddingTaskDialogFragment extends DialogFragment{
         TextInputLayout tilDate = (TextInputLayout) container.findViewById(R.id.tilDialogTaskDate);
         final EditText etDate = tilDate.getEditText();
 
-        TextInputLayout tilTime = (TextInputLayout) container.findViewById(R.id.tilDialogTaskTime);
+        final TextInputLayout tilTime = (TextInputLayout) container.findViewById(R.id.tilDialogTaskTime);
         final EditText etTime = tilTime.getEditText();
 
 
@@ -98,7 +97,7 @@ public class AddingTaskDialogFragment extends DialogFragment{
                         etDate.setText(null);
                     }
                 };
-                datePickerFragment.show(getFragmentManager(), "DatePickerFragmrnt");
+                datePickerFragment.show(getFragmentManager(), "DatePickerFragment");
             }
         });
 
@@ -115,7 +114,7 @@ public class AddingTaskDialogFragment extends DialogFragment{
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE , minute);
                         calendar.set(Calendar.SECOND, 0);
-                        etTime.setText(Utils.getDate(calendar.getTimeInMillis()));
+                        etTime.setText(Utils.getTime(calendar.getTimeInMillis()));
                     }
 
                     @Override

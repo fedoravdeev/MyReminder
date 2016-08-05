@@ -20,7 +20,8 @@ import fm.ua.afv.myreminder.fragment.DoneTaskFragment;
 import fm.ua.afv.myreminder.fragment.SplashFragment;
 import fm.ua.afv.myreminder.model.ModelTask;
 
-public class MainActivity extends AppCompatActivity implements AddingTaskDialogFragment.AddingTaskListener{
+public class MainActivity extends AppCompatActivity
+        implements AddingTaskDialogFragment.AddingTaskListener{
 
     FragmentManager fragmentManager;
     PreferenceHelper preferenceHelper;
@@ -132,6 +133,6 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
 
     @Override
     public void onTaskAddingCancel() {
-        Toast.makeText(this, "Task adding cancel.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Task adding cancel", Toast.LENGTH_LONG).show();
     }
 }

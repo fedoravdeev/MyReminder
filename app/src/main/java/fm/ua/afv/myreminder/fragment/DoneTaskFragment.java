@@ -17,8 +17,8 @@ import fm.ua.afv.myreminder.R;
  */
 public class DoneTaskFragment extends Fragment {
 
-    private RecyclerView rvDoneTask;
-    private RecyclerView.LayoutManager layoutManager;
+    RecyclerView rvDoneTasks;
+    RecyclerView.LayoutManager layoutManager;
 
     public DoneTaskFragment() {
         // Required empty public constructor
@@ -29,10 +29,10 @@ public class DoneTaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_done_task, container, false);
-        rvDoneTask = (RecyclerView) rootView.findViewById(R.id.rvDoneTasks);
+        rvDoneTasks = (RecyclerView) rootView.findViewById(R.id.rvDoneTasks);
 
         layoutManager = new LinearLayoutManager(getActivity());
-        rvDoneTask.setLayoutManager(layoutManager);
+        rvDoneTasks.setLayoutManager(layoutManager);
 
         // Inflate the layout for this fragment
         return rootView;

@@ -21,9 +21,9 @@ public class TabAdapter  extends FragmentStatePagerAdapter{
     private CurrentTaskFragment currentTaskFragment;
     private DoneTaskFragment doneTaskFragment;
 
-    public TabAdapter(FragmentManager fm, int numberOfTas ) {
+    public TabAdapter(FragmentManager fm, int numberOfTabs ) {
         super(fm);
-        this.numberOfTabs = numberOfTas;
+        this.numberOfTabs = numberOfTabs;
         currentTaskFragment = new CurrentTaskFragment();
         doneTaskFragment    = new DoneTaskFragment();
     }

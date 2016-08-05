@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvTaskDate"
         android:gravity="right"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="@color/secondary_text_default_material_light"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"  />

@@ -61,7 +61,7 @@ public class CurrentTaskFragment extends Fragment {
         if (position != -1){
             adapter.addItem(position, newTask);
         }else {
-            adapter.getItem(position);
+            adapter.addItem(newTask);
         }
     }
 }
