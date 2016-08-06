@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import fm.ua.afv.myreminder.adapter.TabAdapter;
+import fm.ua.afv.myreminder.database.DBHelper;
 import fm.ua.afv.myreminder.dialog.AddingTaskDialogFragment;
 import fm.ua.afv.myreminder.fragment.CurrentTaskFragment;
 import fm.ua.afv.myreminder.fragment.DoneTaskFragment;
@@ -33,17 +34,22 @@ CurrentTaskFragment.OnTaskDoneListener,  DoneTaskFragment.OnTaskRestoreListener{
     TaskFragment currentTaskFragment;
     TaskFragment doneTaskFragment;
 
+    public DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         PreferenceHelper.getInstance().init(getApplicationContext());
         preferenceHelper = PreferenceHelper.getInstance();
 
+        dbHelper = new DBHelper(getApplicationContext());
+
         fragmentManager = getFragmentManager();
+
         runSplash();
+
         setUI();
     }
 
@@ -131,7 +137,7 @@ CurrentTaskFragment.OnTaskDoneListener,  DoneTaskFragment.OnTaskRestoreListener{
 
     @Override
     public void onTaskAdded(ModelTask newTask) {
-        currentTaskFragment.addTask(newTask);
+        currentTaskFragment.addTask(newTask, true);
 
     }
 
@@ -142,11 +148,11 @@ CurrentTaskFragment.OnTaskDoneListener,  DoneTaskFragment.OnTaskRestoreListener{
 
     @Override
     public void onTaskDone(ModelTask task) {
-        doneTaskFragment.addTask(task);
+        doneTaskFragment.addTask(task, false);
     }
 
     @Override
     public void onTaskRestore(ModelTask task) {
-        currentTaskFragment.addTask(task);
+        currentTaskFragment.addTask(task, false);
     }
 }

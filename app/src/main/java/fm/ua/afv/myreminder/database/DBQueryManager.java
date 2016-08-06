@@ -15,11 +15,11 @@ public class DBQueryManager {
 
     private SQLiteDatabase database;
 
-    public DBQueryManager(SQLiteDatabase database) {
+    DBQueryManager(SQLiteDatabase database) {
         this.database = database;
     }
 
-    public List<ModelTask> listTasks(String selection, String[] selectionArgs, String orderBy){
+    public List<ModelTask> getTasks(String selection, String[] selectionArgs, String orderBy){
         List<ModelTask> tasks = new ArrayList<>();
         Cursor c = database.query(DBHelper.TASKS_TABLE, null, selection, selectionArgs, null, null, orderBy);
 
@@ -38,4 +38,5 @@ public class DBQueryManager {
         c.close();
         return tasks;
     }
+
 }
