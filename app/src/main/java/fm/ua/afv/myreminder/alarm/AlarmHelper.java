@@ -22,7 +22,7 @@ public class AlarmHelper {
         return instance;
     }
 
-    public void init(){
+    public void init(Context context){
         this.context = context;
         alarmManager = (AlarmManager) context.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
     }
@@ -38,7 +38,7 @@ public class AlarmHelper {
         alarmManager.set(AlarmManager.RTC_WAKEUP, task.getDate(), pendingIntent);
     }
 
-    public void removeTask(long taskTimeStamp){
+    public void removeAlarm(long taskTimeStamp){
         Intent intent = new Intent(context, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) taskTimeStamp, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

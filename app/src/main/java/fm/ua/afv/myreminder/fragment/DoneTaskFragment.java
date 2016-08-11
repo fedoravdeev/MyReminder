@@ -62,7 +62,6 @@ public class DoneTaskFragment extends TaskFragment {
         return rootView;
     }
 
-
     @Override
     public void findTasks(String title) {
         adapter.removeAllItems();
@@ -87,8 +86,12 @@ public class DoneTaskFragment extends TaskFragment {
             addTask(tasks.get(i), false);
         }
     }
+
     @Override
     public void moveTask(ModelTask task) {
+        if (task.getDate() != 0 ){
+            alarmHelper.setAlarm(task);
+        }
         onTaskRestoreListener.onTaskRestore(task);
     }
 }

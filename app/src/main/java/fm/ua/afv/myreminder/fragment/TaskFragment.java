@@ -11,6 +11,7 @@ import android.view.View;
 import fm.ua.afv.myreminder.MainActivity;
 import fm.ua.afv.myreminder.R;
 import fm.ua.afv.myreminder.adapter.TaskAdapter;
+import fm.ua.afv.myreminder.alarm.AlarmHelper;
 import fm.ua.afv.myreminder.model.Item;
 import fm.ua.afv.myreminder.model.ModelTask;
 
@@ -25,6 +26,8 @@ public abstract class TaskFragment extends Fragment{
 
     public MainActivity activity;
 
+    AlarmHelper alarmHelper;
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public abstract class TaskFragment extends Fragment{
         if (getActivity() != null){
             activity = (MainActivity) getActivity();
         }
+        alarmHelper = AlarmHelper.getInstance();
         addTaskFromDB();
     }
 
@@ -93,6 +97,7 @@ public abstract class TaskFragment extends Fragment{
                         @Override
                         public void onViewDetachedFromWindow(View view) {
                             if(isRemoved[0]){
+                                alarmHelper.removeAlarm(timeStamp);
                                 activity.dbHelper.removeTask(timeStamp);
                             }
                         }

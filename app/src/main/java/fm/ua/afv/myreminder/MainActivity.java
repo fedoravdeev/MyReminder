@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import fm.ua.afv.myreminder.adapter.TabAdapter;
+import fm.ua.afv.myreminder.alarm.AlarmHelper;
 import fm.ua.afv.myreminder.database.DBHelper;
 import fm.ua.afv.myreminder.dialog.AddingTaskDialogFragment;
 import fm.ua.afv.myreminder.fragment.CurrentTaskFragment;
@@ -46,6 +47,8 @@ CurrentTaskFragment.OnTaskDoneListener,  DoneTaskFragment.OnTaskRestoreListener{
 
         PreferenceHelper.getInstance().init(getApplicationContext());
         preferenceHelper = PreferenceHelper.getInstance();
+
+        AlarmHelper.getInstance().init(getApplicationContext());
 
         dbHelper = new DBHelper(getApplicationContext());
 
