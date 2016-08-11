@@ -27,33 +27,52 @@ import fm.ua.afv.myreminder.alarm.AlarmHelper;
 import fm.ua.afv.myreminder.model.ModelTask;
 
 /**
- * Created by afv on 03.08.2016.
+ * Created by afv on 11.08.2016.
  */
-public class AddingTaskDialogFragment extends DialogFragment{
+public class EditTaskDialogFragment extends DialogFragment {
 
-    private AddingTaskListener addingTaskListener;
+    public static EditTaskDialogFragment newInstance(ModelTask task) {
 
-    public interface AddingTaskListener{
-        void onTaskAdded(ModelTask newTask);
-        void onTaskAddingCancel();
+        EditTaskDialogFragment editTaskDialogFragment = new EditTaskDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putString("title", task.getTitle());
+        args.putLong("date", task.getDate());
+        args.putInt("priority", task.getPriority());
+        args.putLong("time_stamp", task.getTimeStamp());
+
+        editTaskDialogFragment.setArguments(args);
+        return editTaskDialogFragment;
     }
 
+    private EditingTaskListener editingTaskListener;
+
+    public interface EditingTaskListener{
+        void onTaskEdited(ModelTask updatedTask);
+    }
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Activity activity){
         super.onAttach(activity);
         try{
-            addingTaskListener = (AddingTaskListener) activity;
-        }catch (ClassCastException e){
-            throw new ClassCastException(activity.toString() + " must implement AddingTaskListener");
+            editingTaskListener = (EditingTaskListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement EditingTaskListener");
         }
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        String title = args.getString("title");
+        long date = args.getLong("date", 0);
+        int priority = args.getInt("priority", 0);
+        long timeStamp  = args.getLong("time_stamp", 0);
+
+        final ModelTask task = new ModelTask(title, date, priority, 0, timeStamp);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle(R.string.dialog_title);
+        builder.setTitle(R.string.dialog_editing_title);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
@@ -71,18 +90,28 @@ public class AddingTaskDialogFragment extends DialogFragment{
         Spinner spPriority = (Spinner) container.findViewById(R.id.spDialogTaskPriority);
 
 
+        etTitle.setText(task.getTitle());
+        etTitle.setSelection(etTitle.length());
+        if(task.getDate() != 0){
+            etDate.setText(Utils.getDate(task.getDate()));
+            etTime.setText(Utils.getTime(task.getDate()));
+        }
+
+
         tilTitle.setHint(getResources().getString(R.string.task_title));
         tilDate.setHint(getResources().getString(R.string.task_date));
         tilTime.setHint(getResources().getString(R.string.task_time));
 
         builder.setView(container);
 
-        final ModelTask task = new ModelTask();
+
 
         ArrayAdapter<String> priorityAdapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, ModelTask.PRIORITY_LEVELS);
 
         spPriority.setAdapter(priorityAdapter);
+        spPriority.setSelection(task.getPriority());
+
         spPriority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -100,6 +129,10 @@ public class AddingTaskDialogFragment extends DialogFragment{
 
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + 1);
+
+        if(etDate.length() != 0 || etTime.length() != 0){
+            calendar.setTimeInMillis(task.getDate());
+        }
 
 
         etDate.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +197,7 @@ public class AddingTaskDialogFragment extends DialogFragment{
                     alarmHelper.setAlarm(task);
                 }
                 task.setStatus(ModelTask.STATUS_CURRENT);
-                addingTaskListener.onTaskAdded(task);
+                editingTaskListener.onTaskEdited(task);
                 dialog.dismiss();
             }
         });
@@ -172,7 +205,6 @@ public class AddingTaskDialogFragment extends DialogFragment{
         builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                addingTaskListener.onTaskAddingCancel();
                 dialog.cancel();
             }
         });
